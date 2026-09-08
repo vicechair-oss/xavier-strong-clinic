@@ -5,7 +5,7 @@
 
 export const FEE_CENTS = 2000;          // $20.00, fixed server-side. Never trust the client.
 export const FEE_USD = '20.00';
-export const CLINIC_DATE = '2026-10-09';
+export const CLINIC_DATE = '2026-10-08';
 
 export const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
