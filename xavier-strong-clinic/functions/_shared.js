@@ -45,21 +45,41 @@ export function makeReference(playerName) {
 
 /* ---------------------------------------------------------------- Airtable */
 
+/** Trim env vars: a trailing space pasted into a dashboard is invisible and fatal. */
+const envStr = (v, fallback = '') => String(v ?? fallback).trim();
+
 function airtableUrl(env, path = '') {
-  const table = encodeURIComponent(env.AIRTABLE_TABLE || 'Registrations');
-  return `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${table}${path}`;
+  const base  = envStr(env.AIRTABLE_BASE_ID);
+  const table = encodeURIComponent(envStr(env.AIRTABLE_TABLE, 'Registrations'));
+  return `https://api.airtable.com/v0/${base}/${table}${path}`;
+}
+
+/** Describes config without exposing secrets, for log output only. */
+export function configFingerprint(env) {
+  const tok = envStr(env.AIRTABLE_TOKEN);
+  return {
+    baseId: envStr(env.AIRTABLE_BASE_ID),
+    table: envStr(env.AIRTABLE_TABLE, 'Registrations'),
+    tokenLength: tok.length,
+    tokenPrefix: tok.slice(0, 7),
+    tokenHasDot: tok.includes('.'),
+    rawBaseIdLength: String(env.AIRTABLE_BASE_ID ?? '').length,
+    rawTableLength: String(env.AIRTABLE_TABLE ?? '').length,
+  };
 }
 
 export async function airtableCreate(env, fields) {
   const res = await fetch(airtableUrl(env), {
     method: 'POST',
     headers: {
-      authorization: `Bearer ${env.AIRTABLE_TOKEN}`,
+      authorization: `Bearer ${envStr(env.AIRTABLE_TOKEN)}`,
       'content-type': 'application/json',
     },
     body: JSON.stringify({ fields, typecast: true }),
   });
   if (!res.ok) {
+    console.error('AIRTABLE CONFIG', JSON.stringify(configFingerprint(env)));
+    console.error('AIRTABLE URL', airtableUrl(env));
     throw new Error(`Airtable create failed (${res.status}): ${await res.text()}`);
   }
   return res.json();
@@ -69,7 +89,7 @@ export async function airtableUpdate(env, recordId, fields) {
   const res = await fetch(airtableUrl(env, `/${recordId}`), {
     method: 'PATCH',
     headers: {
-      authorization: `Bearer ${env.AIRTABLE_TOKEN}`,
+      authorization: `Bearer ${envStr(env.AIRTABLE_TOKEN)}`,
       'content-type': 'application/json',
     },
     body: JSON.stringify({ fields, typecast: true }),
@@ -84,7 +104,7 @@ export async function airtableUpdate(env, recordId, fields) {
 export async function airtableFindByReference(env, reference) {
   const formula = encodeURIComponent(`{Reference}="${reference.replace(/"/g, '')}"`);
   const res = await fetch(airtableUrl(env, `?filterByFormula=${formula}&maxRecords=1`), {
-    headers: { authorization: `Bearer ${env.AIRTABLE_TOKEN}` },
+    headers: { authorization: `Bearer ${envStr(env.AIRTABLE_TOKEN)}` },
   });
   if (!res.ok) throw new Error(`Airtable lookup failed (${res.status})`);
   const data = await res.json();
