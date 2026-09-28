@@ -6,7 +6,7 @@
 <title>Xavier Strong Baseball Clinic | Registration</title>
 <meta name="description" content="Register for the inaugural All Things Foundation Xavier Strong Baseball Clinic. Ages 7 to 18. October 8, 2026. 499 S Clinton Ave, Maple Shade, NJ 08052.">
 <meta property="og:title" content="Xavier Strong Baseball Clinic">
-<meta property="og:description" content="Ages 7 to 18. October 8, 2026, 6:00 to 9:00 PM. $20. 499 S Clinton Ave, Maple Shade, NJ.">
+<meta property="og:description" content="Ages 7 to 18. October 8, 2026, 6:00 to 9:00 PM. Free. 499 S Clinton Ave, Maple Shade, NJ.">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -260,9 +260,9 @@ img{max-width:100%}
     </div>
     <div class="fact">
       <div class="fact-label">Cost</div>
-      <div class="fact-value">$20</div>
-      <div class="fact-sub">Walk-ups accepted</div>
-    </div>
+      <div class="fact-value">Free!</div>
+      <div class="fact-sub">Register by Oct 6</div>
+          </div>
     <div class="fact">
       <div class="fact-label">Session</div>
       <div class="fact-value">6:00&ndash;9:00 PM</div>
@@ -303,7 +303,7 @@ img{max-width:100%}
       <span data-s="2">Player</span>
       <span data-s="3">Health</span>
       <span data-s="4">Confirm</span>
-      <span data-s="5">Pay</span>
+      
     </div>
   </div>
 
@@ -471,53 +471,13 @@ img{max-width:100%}
 
       <div class="pay">
         <div class="pay-label">Registration fee</div>
-        <div class="pay-amt">$20</div>
-        <div class="pay-note">One player &middot; October 8, 2026</div>
-        <button class="btn-pay" onclick="submitReg()">Complete Signup</button>
+      <div class="pay-amt">Free!</div> 
+<div class="pay-note">One player &middot; October 8, 2026</div>
+                <button class="btn-pay" onclick="submitReg()">Complete Signup</button>
       </div>
 
       <div class="btns" style="margin-top:0">
         <button class="btn-ghost" onclick="back(4)">Back</button>
-      </div>
-    </section>
-
-
-    <section class="step" id="s5">
-      <div class="step-head">
-        <div class="step-num">05</div>
-        <div class="step-title">Payment</div>
-      </div>
-
-      <div class="saved">
-        Registration saved. Your reference is <b id="payRef">&mdash;</b>.
-        The spot is held once payment comes through.
-      </div>
-
-      <div id="payPaypal" hidden>
-        <div class="pay">
-          <div class="pay-label">Registration fee</div>
-          <div class="pay-amt">$20</div>
-          <div class="pay-note">Pay with Venmo, PayPal, or a card</div>
-          <div id="ppButtons"></div>
-        </div>
-      </div>
-
-      <div id="payVenmo" hidden>
-        <div class="pay">
-          <div class="pay-label">Send on Venmo</div>
-          <div class="pay-amt">$20</div>
-          <div class="pay-note">
-            Include <b id="venmoRef">&mdash;</b> in the note so we can match your payment.
-          </div>
-          <a class="btn-pay btn-link" id="venmoLink" href="#" rel="noopener">Open Venmo</a>
-          <div class="pay-hand">
-            On a computer? Send $20 to <b id="venmoHandle"></b> on Venmo,
-            and put your reference in the note.
-          </div>
-        </div>
-        <button class="btn-primary" style="width:100%" onclick="venmoDone()">
-          I&rsquo;ve Sent The Payment
-        </button>
       </div>
     </section>
 
