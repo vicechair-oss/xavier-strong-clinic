@@ -8,9 +8,6 @@ import {
     makeReference, airtableCreate, CLINIC_DATE,
 } from '../_shared.js';
 
-const SHIRTS = ['Youth S','Youth M','Youth L','Youth XL',
-                                'Adult S','Adult M','Adult L','Adult XL','Adult XXL'];
-
 function ageOnClinicDay(dobStr) {
     const dob = new Date(dobStr + 'T00:00:00Z');
     const day = new Date(CLINIC_DATE + 'T00:00:00Z');
@@ -38,7 +35,6 @@ export async function onRequestPost({ request, env }) {
     const playerName    = clean(body.playerName, 120);
     const dob           = clean(body.dob, 20);
     const grade         = clean(body.grade, 20);
-    const shirt         = clean(body.shirt, 20);
     const position      = clean(body.position, 40);
     const emergName     = clean(body.emergencyName, 120);
     const emergPhone    = normalizePhone(body.emergencyPhone);
@@ -52,7 +48,6 @@ export async function onRequestPost({ request, env }) {
     if (!guardianPhone)            errors.guardianPhone = 'Enter a 10-digit US phone number.';
     if (!playerName)               errors.playerName = 'Required.';
     if (!/^\d{4}-\d{2}-\d{2}$/.test(dob)) errors.dob = 'Required.';
-    if (!SHIRTS.includes(shirt))   errors.shirt = 'Choose a shirt size.';
     if (!emergName)                errors.emergencyName = 'Required.';
     if (!emergPhone)                errors.emergencyPhone = 'Enter a 10-digit US phone number.';
     if (!consent)                  errors.consent = 'Consent is required to register.';
@@ -73,7 +68,6 @@ export async function onRequestPost({ request, env }) {
         'Player Name':        playerName,
         'Date of Birth':      dob,
         'Grade':              grade || undefined,
-        'T-Shirt Size':       shirt,
         'Position':           position || undefined,
         'Guardian Name':      guardianName,
         'Guardian Email':     guardianEmail,
