@@ -24,7 +24,7 @@ function show(n) {
 
 const REQUIRED = {
      1: ['gName', 'gEmail', 'gPhone'],
-     2: ['pName', 'pDob', 'pShirt'],
+     2: ['pName', 'pDob'],
      3: ['eName', 'ePhone'],
 };
 
@@ -58,7 +58,7 @@ function next(n) {
 function back(n) { step = n - 1; show(step); }
 
 function fillReview() {
-     ['gName','gEmail','gPhone','pName','pDob','pGrade','pShirt','pPos','eName','ePhone']
+     ['gName','gEmail','gPhone','pName','pDob','pGrade','pPos','eName','ePhone']
        .forEach((id) => {
                 const t = $('r-' + id);
                 if (t) t.textContent = val(id) || '—';
@@ -92,7 +92,6 @@ async function submitReg() {
          playerName: val('pName'),
          dob: val('pDob'),
          grade: val('pGrade'),
-         shirt: val('pShirt'),
          position: val('pPos'),
          emergencyName: val('eName'),
          emergencyPhone: val('ePhone'),
